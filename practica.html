@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Práctica del Pretérito | Aprende Español</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&family=Roboto+Slab:wght@700&display=swap" rel="stylesheet">
+    <style>
+        /* Estilos adicionales para los nuevos juegos */
+        .word-search {
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+        
+        .word-search td {
+            width: 30px;
+            height: 30px;
+            text-align: center;
+            border: 1px solid #ddd;
+            font-weight: bold;
+        }
+        
+        .word-search td.highlight {
+            background-color: #ffeb3b;
+        }
+        
+        .memory-game {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            max-width: 600px;
+            margin: 20px auto;
+        }
+        
+        .memory-card {
+            height: 100px;
+            background-color: var(--accent-color);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .memory-card:hover {
+            transform: scale(1.05);
+        }
+        
+        .memory-card.flipped {
+            background-color: white;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+        }
+        
+        .matching-game {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            max-width: 600px;
+            margin: 20px auto;
+        }
+        
+        .matching-item {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: move;
+            text-align: center;
+            background-color: white;
+        }
+        
+        .matching-item:hover {
+            background-color: #f5f5f5;
+        }
+        
+        .context-exercise {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .context-exercise p {
+            margin-bottom: 10px;
+        }
+        
+        .word-bank {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 15px 0;
+        }
+        
+        .word-option {
+            padding: 5px 10px;
+            background-color: var(--light-color);
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .word-option:hover {
+            background-color: var(--accent-color);
+            color: white;
+        }
+        
+        .word-option.selected {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .drop-area {
+            min-height: 30px;
+            border: 2px dashed #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 10px 0;
+        }
+        
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Practica el Pretérito</h1>
+            <p>Ejercicios interactivos para reforzar lo aprendido</p>
+        </div>
+    </header>
+
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="gramatica.html">Gramática</a></li>
+                <li><a href="practica.html" class="active">Práctica</a></li>
+                <li><a href="quiz.html">Quiz</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section class="practice-section">
+            <h2>Sopa de Letras - Verbos Irregulares</h2>
+            
+            <div class="exercise word-search-exercise">
+                <p>Encuentra los verbos irregulares en pretérito en la sopa de letras:</p>
+                
+                <table class="word-search" id="wordSearch">
+                    <!-- La sopa de letras se generará con JavaScript -->
+                </table>
+                
+                <div class="word-list">
+                    <h4>Palabras a encontrar:</h4>
+                    <ul id="wordList">
+                        <li>anduve</li>
+                        <li>tuve</li>
+                        <li>estuve</li>
+                        <li>pude</li>
+                        <li>hice</li>
+                        <li>vine</li>
+                        <li>fui</li>
+                        <li>dije</li>
+                    </ul>
+                </div>
+                
+                <button class="btn check-btn" id="checkWordSearch">Verificar</button>
+                <div class="feedback" id="wordSearchFeedback"></div>
+            </div>
+        </section>
+
+        <section class="practice-section">
+            <h2>Juego de Memoria - Empareja los Verbos</h2>
+            
+            <div class="exercise memory-game-exercise">
+                <p>Encuentra las parejas de verbos (infinitivo y pretérito):</p>
+                
+                <div class="memory-game" id="memoryGame">
+                    <!-- Las tarjetas se generarán con JavaScript -->
+                </div>
+                
+                <div class="stats">
+                    <p>Intentos: <span id="attempts">0</span> | Parejas encontradas: <span id="matches">0</span>/8</p>
+                </div>
+                
+                <button class="btn reset-btn" id="resetMemoryGame">Reiniciar Juego</button>
+            </div>
+        </section>
+
+        <section class="practice-section">
+            <h2>Relaciona Columnas</h2>
+            
+            <div class="exercise matching-exercise">
+                <p>Arrastra los verbos en pretérito para emparejarlos con su traducción en inglés:</p>
+                
+                <div class="matching-game">
+                    <div class="matching-column">
+                        <h4>Español</h4>
+                        <div class="matching-item" draggable="true" data-value="fui">fui</div>
+                        <div class="matching-item" draggable="true" data-value="hiciste">hiciste</div>
+                        <div class="matching-item" draggable="true" data-value="supieron">supieron</div>
+                        <div class="matching-item" draggable="true" data-value="pudimos">pudimos</div>
+                    </div>
+                    
+                    <div class="matching-column">
+                        <h4>English</h4>
+                        <div class="drop-area" data-value="fui">I went/was</div>
+                        <div class="drop-area" data-value="hiciste">you did/made</div>
+                        <div class="drop-area" data-value="supieron">they found out</div>
+                        <div class="drop-area" data-value="pudimos">we were able</div>
+                    </div>
+                </div>
+                
+                <button class="btn check-btn" id="checkMatching">Verificar</button>
+                <div class="feedback" id="matchingFeedback"></div>
+            </div>
+        </section>
+
+        <section class="practice-section">
+            <h2>Ejercicio de Contexto</h2>
+            
+            <div class="exercise context-exercise">
+                <p>Completa el párrafo con los verbos correctos en pretérito:</p>
+                
+                <div class="context-exercise-content">
+                    <p>Ayer <span class="blank" data-answer="fui">______</span> (ir) al centro comercial con mis amigos. Primero <span class="blank" data-answer="anduvimos">______</span> (andar) por todas las tiendas. Mi amiga Laura <span class="blank" data-answer="quiso">______</span> (querer) comprar un vestido pero no <span class="blank" data-answer="pudo">______</span> (poder) encontrar su talla. Nosotros <span class="blank" data-answer="hicimos">______</span> (hacer) muchas fotos y <span class="blank" data-answer="estuvimos">______</span> (estar) allí por tres horas. Al final, <span class="blank" data-answer="tuvimos">______</span> (tener) que regresar a casa porque <span class="blank" data-answer="supimos">______</span> (saber) que había tarea para el día siguiente.</p>
+                    
+                    <div class="word-bank">
+                        <div class="word-option" data-target="fui">fui</div>
+                        <div class="word-option" data-target="anduvimos">anduvimos</div>
+                        <div class="word-option" data-target="quiso">quiso</div>
+                        <div class="word-option" data-target="pudo">pudo</div>
+                        <div class="word-option" data-target="hicimos">hicimos</div>
+                        <div class="word-option" data-target="estuvimos">estuvimos</div>
+                        <div class="word-option" data-target="tuvimos">tuvimos</div>
+                        <div class="word-option" data-target="supimos">supimos</div>
+                    </div>
+                </div>
+                
+                <button class="btn check-btn" id="checkContext">Verificar</button>
+                <div class="feedback" id="contextFeedback"></div>
+            </div>
+        </section>
+
+        <section class="practice-section hidden" id="bonusSection">
+            <h2>¡Bonus! Crucigrama de Verbos</h2>
+            
+            <div class="exercise crossword-exercise">
+                <p>Completa el crucigrama con los verbos en pretérito:</p>
+                
+                <div class="crossword-grid" id="crossword">
+                    <!-- El crucigrama se generará con JavaScript -->
+                </div>
+                
+                <div class="crossword-clues">
+                    <div class="across-clues">
+                        <h4>Horizontal:</h4>
+                        <p>1. Yo ______ (tener) un examen difícil ayer.</p>
+                        <p>3. Nosotros ______ (hacer) la tarea anoche.</p>
+                        <p>5. Ellos ______ (venir) a la fiesta el sábado.</p>
+                    </div>
+                    
+                    <div class="down-clues">
+                        <h4>Vertical:</h4>
+                        <p>2. Tú ______ (poder) terminar el proyecto a tiempo.</p>
+                        <p>4. Ella ______ (estar) en casa todo el día.</p>
+                    </div>
+                </div>
+                
+                <button class="btn check-btn" id="checkCrossword">Verificar</button>
+                <div class="feedback" id="crosswordFeedback"></div>
+            </div>
+            
+            <button class="btn" id="showBonus">Mostrar más ejercicios</button>
+        </section>
+
+        <div class="next-section">
+            <a href="quiz.html" class="btn">¿Listo para el Quiz? →</a>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>© 2023 Aprende el Pretérito - Diseñado para estudiantes de secundaria en California</p>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz del Pretérito | Aprende Español</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Quiz del Pretérito</h1>
+            <p>Pon a prueba tus conocimientos</p>
+        </div>
+    </header>
+
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="gramatica.html">Gramática</a></li>
+                <li><a href="practica.html">Práctica</a></li>
+                <li><a href="quiz.html" class="active">Quiz</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section class="quiz-intro">
+            <h2>Instrucciones</h2>
+            <p>Este quiz contiene 15 preguntas sobre los verbos irregulares en pretérito. Intenta responder todas las preguntas sin consultar tus apuntes. Al final recibirás una calificación y retroalimentación.</p>
+            <button id="startQuiz" class="btn">Comenzar Quiz</button>
+
+        </section>
+
+        <form id="quizForm" style="display: none;">
+            <section class="quiz-section">
+                <!-- Pregunta 1 -->
+<div class="quiz-question">
+    <h3>Pregunta 1</h3>
+    <p>Yo _____ a la escuela ayer.</p>
+    <div class="options">
+        <label><input type="radio" name="q1" value="A" required> ando</label>
+        <label><input type="radio" name="q1" value="B"> anduve</label>
+        <label><input type="radio" name="q1" value="C"> andé</label>
+    </div>
+</div>
+
+<!-- Pregunta 2 -->
+<div class="quiz-question">
+    <h3>Pregunta 2</h3>
+    <p>Ella _____ una fiesta el sábado pasado.</p>
+    <div class="options">
+        <label><input type="radio" name="q2" value="A" required> tiene</label>
+        <label><input type="radio" name="q2" value="B"> tuvo</label>
+        <label><input type="radio" name="q2" value="C"> tenió</label>
+    </div>
+</div>
+
+<!-- Pregunta 3 -->
+<div class="quiz-question">
+    <h3>Pregunta 3</h3>
+    <p>Nosotros _____ (hacer) la tarea anoche.</p>
+    <div class="options">
+        <label><input type="radio" name="q3" value="A" required> hacemos</label>
+        <label><input type="radio" name="q3" value="B"> hicimos</label>
+        <label><input type="radio" name="q3" value="C"> hacíamos</label>
+    </div>
+</div>
+
+<!-- Pregunta 4 -->
+<div class="quiz-question">
+    <h3>Pregunta 4</h3>
+    <p>¿Tú _____ (poder) encontrar las llaves?</p>
+    <div class="options">
+        <label><input type="radio" name="q4" value="A" required> puedes</label>
+        <label><input type="radio" name="q4" value="B"> podías</label>
+        <label><input type="radio" name="q4" value="C"> pudiste</label>
+    </div>
+</div>
+
+<!-- Pregunta 5 -->
+<div class="quiz-question">
+    <h3>Pregunta 5</h3>
+    <p>Ellos _____ (venir) a la fiesta el viernes.</p>
+    <div class="options">
+        <label><input type="radio" name="q5" value="A" required> vienen</label>
+        <label><input type="radio" name="q5" value="B"> vinieron</label>
+        <label><input type="radio" name="q5" value="C"> venían</label>
+    </div>
+</div>
+
+<!-- Pregunta 6 -->
+<div class="quiz-question">
+    <h3>Pregunta 6</h3>
+    <p>Yo _____ (saber) la respuesta ayer.</p>
+    <div class="options">
+        <label><input type="radio" name="q6" value="A" required> sé</label>
+        <label><input type="radio" name="q6" value="B"> supe</label>
+        <label><input type="radio" name="q6" value="C"> sabía</label>
+    </div>
+</div>
+
+<!-- Pregunta 7 -->
+<div class="quiz-question">
+    <h3>Pregunta 7</h3>
+    <p>Ustedes _____ (estar) en la reunión.</p>
+    <div class="options">
+        <label><input type="radio" name="q7" value="A" required> están</label>
+        <label><input type="radio" name="q7" value="B"> estuvieron</label>
+        <label><input type="radio" name="q7" value="C"> estaban</label>
+    </div>
+</div>
+
+<!-- Pregunta 8 -->
+<div class="quiz-question">
+    <h3>Pregunta 8</h3>
+    <p>Él _____ (querer) comprar el coche.</p>
+    <div class="options">
+        <label><input type="radio" name="q8" value="A" required> quiere</label>
+        <label><input type="radio" name="q8" value="B"> quería</label>
+        <label><input type="radio" name="q8" value="C"> quiso</label>
+    </div>
+</div>
+
+<!-- Pregunta 9 -->
+<div class="quiz-question">
+    <h3>Pregunta 9</h3>
+    <p>Nosotros _____ (decir) la verdad.</p>
+    <div class="options">
+        <label><input type="radio" name="q9" value="A" required> decimos</label>
+        <label><input type="radio" name="q9" value="B"> dijimos</label>
+        <label><input type="radio" name="q9" value="C"> decíamos</label>
+    </div>
+</div>
+
+<!-- Pregunta 10 -->
+<div class="quiz-question">
+    <h3>Pregunta 10</h3>
+    <p>Tú _____ (poner) los libros en la mesa.</p>
+    <div class="options">
+        <label><input type="radio" name="q10" value="A" required> pones</label>
+        <label><input type="radio" name="q10" value="B"> pusiste</label>
+        <label><input type="radio" name="q10" value="C"> ponías</label>
+    </div>
+</div>
+
+<!-- Pregunta 11 -->
+<div class="quiz-question">
+    <h3>Pregunta 11</h3>
+    <p>Ellas _____ (traer) los refrescos.</p>
+    <div class="options">
+        <label><input type="radio" name="q11" value="A" required> traen</label>
+        <label><input type="radio" name="q11" value="B"> traían</label>
+        <label><input type="radio" name="q11" value="C"> trajeron</label>
+    </div>
+</div>
+
+<!-- Pregunta 12 -->
+<div class="quiz-question">
+    <h3>Pregunta 12</h3>
+    <p>Yo _____ (andar) por el parque todo el día.</p>
+    <div class="options">
+        <label><input type="radio" name="q12" value="A" required> ando</label>
+        <label><input type="radio" name="q12" value="B"> anduve</label>
+        <label><input type="radio" name="q12" value="C"> andaba</label>
+    </div>
+</div>
+
+<!-- Pregunta 13 -->
+<div class="quiz-question">
+    <h3>Pregunta 13</h3>
+    <p>¿Quién _____ (hacer) este pastel?</p>
+    <div class="options">
+        <label><input type="radio" name="q13" value="A" required> hace</label>
+        <label><input type="radio" name="q13" value="B"> hizo</label>
+        <label><input type="radio" name="q13" value="C"> hacía</label>
+    </div>
+</div>
+
+<!-- Pregunta 14 -->
+<div class="quiz-question">
+    <h3>Pregunta 14</h3>
+    <p>Vosotros _____ (ser) muy amables.</p>
+    <div class="options">
+        <label><input type="radio" name="q14" value="A" required> sois</label>
+        <label><input type="radio" name="q14" value="B"> fuisteis</label>
+        <label><input type="radio" name="q14" value="C"> erais</label>
+    </div>
+</div>
+
+<!-- Pregunta 15 -->
+<div class="quiz-question">
+    <h3>Pregunta 15</h3>
+    <p>Ella _____ (ver) la película anoche.</p>
+    <div class="options">
+        <label><input type="radio" name="q15" value="A" required> ve</label>
+        <label><input type="radio" name="q15" value="B"> vio</label>
+        <label><input type="radio" name="q15" value="C"> veía</label>
+    </div>
+</div>
+
+
+                <button type="submit" class="btn">Enviar Quiz</button>
+            </section>
+
+            <div class="quiz-controls">
+        <button type="button" id="prevQuestion" class="btn">Anterior</button>
+        <span id="questionCounter">Pregunta 1 de 15</span>
+        <button type="button" id="nextQuestion" class="btn">Siguiente</button>
+        <button type="submit" class="btn submit-btn">Enviar Quiz</button>
+    </div>
+        </form>
+
+        <section id="quiz-results" style="display: none;">
+            <h2>Resultados</h2>
+            <div id="score-display"></div>
+            <div id="feedback"></div>
+            <a href="practica.html" class="btn">Practicar más</a>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>© 2023 Aprende el Pretérito - Diseñado para estudiantes de secundaria en California</p>
+        </div>
+    </footer>
+
+    <script src="js/quiz.js"></script>
+</body>
+</html>
