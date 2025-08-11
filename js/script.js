@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+/* === document.addEventListener('DOMContentLoaded', function() {
     // Efecto de scroll suave para los enlaces
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
@@ -194,75 +194,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
     }
-    const sentenceOrder = document.getElementById('sentenceOrder');
-if (sentenceOrder) {
-    let draggedWord = null;
 
-    document.querySelectorAll('.word-draggable').forEach(word => {
-        word.addEventListener('dragstart', () => draggedWord = word);
-        word.addEventListener('dragover', e => e.preventDefault());
-        word.addEventListener('drop', function() {
-            if (draggedWord && draggedWord !== this) {
-                const draggedIndex = [...sentenceOrder.children].indexOf(draggedWord);
-                const targetIndex = [...sentenceOrder.children].indexOf(this);
-                if (draggedIndex > targetIndex) {
-                    sentenceOrder.insertBefore(draggedWord, this);
-                } else {
-                    sentenceOrder.insertBefore(draggedWord, this.nextSibling);
-                }
-            }
-        });
-    });
-
-    document.getElementById('checkSentenceOrder').addEventListener('click', () => {
-        const currentOrder = [...sentenceOrder.children].map(c => c.textContent).join(' ');
-        const correctOrder = "ayer fui al cine";
-        const feedback = document.getElementById('sentenceOrderFeedback');
-        if (currentOrder === correctOrder) {
-            feedback.textContent = "✅ ¡Correcto!";
-            feedback.style.color = "var(--success-color)";
-        } else {
-            feedback.textContent = "❌ Orden incorrecto. Intenta de nuevo.";
-            feedback.style.color = "var(--error-color)";
-        }
-    });
-}
-
-/* === Ejercicio: Verdadero o falso === */
-document.querySelectorAll('.tf-btn').forEach(btn => {
-    btn.addEventListener('click', function() {
-        const feedback = this.parentElement.nextElementSibling;
-        if (this.dataset.correct === "true") {
-            feedback.textContent = "✅ Correcto";
-            feedback.style.color = "var(--success-color)";
-        } else {
-            feedback.textContent = "❌ Incorrecto";
-            feedback.style.color = "var(--error-color)";
-        }
-    });
-});
-
-/* === Ejercicio: Completar huecos === */
-document.querySelectorAll('.word-option').forEach(word => {
-    word.addEventListener('dragstart', e => e.dataTransfer.setData('text', word.textContent));
-});
-
-document.querySelectorAll('.blank-drop').forEach(blank => {
-    blank.addEventListener('dragover', e => e.preventDefault());
-    blank.addEventListener('drop', function(e) {
-        e.preventDefault();
-        const droppedWord = e.dataTransfer.getData('text');
-        this.textContent = droppedWord;
-        const feedback = document.getElementById('dragDropFeedback');
-        if (droppedWord === this.dataset.answer) {
-            feedback.textContent = "✅ Correcto";
-            feedback.style.color = "var(--success-color)";
-        } else {
-            feedback.textContent = "❌ Incorrecto";
-            feedback.style.color = "var(--error-color)";
-        }
-    });
-});
     function checkForMatch() {
         const [card1, card2] = flippedCards;
         
@@ -399,7 +331,7 @@ document.querySelectorAll('.blank-drop').forEach(blank => {
 });
 
 /* === Ejercicio: Ordenar frase === */
-const sentenceOrder = document.getElementById('sentenceOrder');
+/* === const sentenceOrder = document.getElementById('sentenceOrder');
 if (sentenceOrder) {
     let draggedWord = null;
 
@@ -434,7 +366,7 @@ if (sentenceOrder) {
 }
 
 /* === Ejercicio: Verdadero o falso === */
-document.querySelectorAll('.tf-btn').forEach(btn => {
+/* === document.querySelectorAll('.tf-btn').forEach(btn => {
     btn.addEventListener('click', function() {
         const feedback = this.parentElement.nextElementSibling;
         if (this.dataset.correct === "true") {
@@ -448,7 +380,7 @@ document.querySelectorAll('.tf-btn').forEach(btn => {
 });
 
 /* === Ejercicio: Completar huecos === */
-document.querySelectorAll('.word-option').forEach(word => {
+/* ===document.querySelectorAll('.word-option').forEach(word => {
     word.addEventListener('dragstart', e => e.dataTransfer.setData('text', word.textContent));
 });
 
@@ -468,4 +400,452 @@ document.querySelectorAll('.blank-drop').forEach(blank => {
         }
     });
 });
+=== */
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    /* ==============================
+       Efectos y navegación
+    ============================== */
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+        });
+    });
+
+    const currentPage = location.pathname.split('/').pop();
+    document.querySelectorAll('nav a').forEach(link => {
+        if (link.getAttribute('href') === currentPage) link.classList.add('active');
+    });
+
+    const verbCards = document.querySelectorAll('.verb-card');
+    verbCards.forEach(card => {
+        card.addEventListener('mouseenter', function () {
+            this.style.transform = 'translateY(-5px)';
+            this.style.boxShadow = '0 5px 15px rgba(0,0,0,0.1)';
+        });
+        card.addEventListener('mouseleave', function () {
+            this.style.transform = 'translateY(0)';
+            this.style.boxShadow = '0 2px 5px rgba(0,0,0,0.1)';
+        });
+    });
+
+    /* ==============================
+       Página práctica
+    ============================== */
+    if (currentPage === 'practica.html') {
+        // Ejercicio de completar espacios (input text)
+        const fillBlankExercises = document.querySelectorAll('.fill-blank-exercise');
+        fillBlankExercises.forEach(exercise => {
+            const blanks = exercise.querySelectorAll('input[type="text"]');
+            const checkBtn = exercise.querySelector('.check-btn');
+            const feedback = exercise.querySelector('.feedback');
+            checkBtn.addEventListener('click', function () {
+                let allCorrect = true;
+                blanks.forEach(blank => {
+                    const correctAnswer = blank.dataset.correct;
+                    if (blank.value.trim().toLowerCase() !== correctAnswer.toLowerCase()) {
+                        blank.style.borderColor = 'var(--error-color)';
+                        allCorrect = false;
+                    } else {
+                        blank.style.borderColor = 'var(--success-color)';
+                    }
+                });
+                if (allCorrect) {
+                    feedback.textContent = '¡Correcto! Buen trabajo.';
+                    feedback.style.color = 'var(--success-color)';
+                } else {
+                    feedback.textContent = 'Algunas respuestas son incorrectas. Revisa y intenta de nuevo.';
+                    feedback.style.color = 'var(--error-color)';
+                }
+            });
+        });
+
+        /* ==============================
+           Sopa de letras
+        ============================== */
+        const wordSearchGrid = [
+            ['A','N','D','U','V','E','X','Y','Z','W'],
+            ['Q','W','E','R','T','P','U','D','E','M'],
+            ['F','U','I','S','T','E','V','B','N','K'],
+            ['H','I','C','E','L','O','P','A','S','D'],
+            ['E','S','T','U','V','E','F','G','H','J'],
+            ['V','I','N','E','T','U','V','I','M','O'],
+            ['P','L','O','K','I','J','U','H','Y','G'],
+            ['T','U','V','E','R','T','Y','U','I','O'],
+            ['D','I','J','E','P','L','O','K','I','J'],
+            ['F','U','I','M','N','B','V','C','X','Z']
+        ];
+        function renderWordSearch() {
+            const table = document.getElementById('wordSearch');
+            table.innerHTML = '';
+            for (let i = 0; i < wordSearchGrid.length; i++) {
+                const row = document.createElement('tr');
+                for (let j = 0; j < wordSearchGrid[i].length; j++) {
+                    const cell = document.createElement('td');
+                    cell.textContent = wordSearchGrid[i][j];
+                    cell.addEventListener('click', () => cell.classList.toggle('highlight'));
+                    row.appendChild(cell);
+                }
+                table.appendChild(row);
+            }
+        }
+        document.getElementById('checkWordSearch').addEventListener('click', function () {
+            const feedback = document.getElementById('wordSearchFeedback');
+            feedback.textContent = '¡Buen trabajo! Encontraste algunas palabras.';
+            feedback.style.color = 'var(--success-color)';
+        });
+        renderWordSearch();
+
+        /* ==============================
+           Juego de memoria
+        ============================== */
+        const memoryCards = [
+            { id: 1, content: 'andar', pair: 'anduve' },{ id: 2, content: 'anduve', pair: 'andar' },
+            { id: 3, content: 'tener', pair: 'tuve' },{ id: 4, content: 'tuve', pair: 'tener' },
+            { id: 5, content: 'hacer', pair: 'hice' },{ id: 6, content: 'hice', pair: 'hacer' },
+            { id: 7, content: 'venir', pair: 'vine' },{ id: 8, content: 'vine', pair: 'venir' },
+            { id: 9, content: 'poder', pair: 'pude' },{ id: 10, content: 'pude', pair: 'poder' },
+            { id: 11, content: 'saber', pair: 'supe' },{ id: 12, content: 'supe', pair: 'saber' },
+            { id: 13, content: 'querer', pair: 'quise' },{ id: 14, content: 'quise', pair: 'querer' },
+            { id: 15, content: 'decir', pair: 'dije' },{ id: 16, content: 'dije', pair: 'decir' }
+        ];
+        let flippedCards = [], matchedPairs = 0, attempts = 0;
+        function renderMemoryGame() {
+            const gameContainer = document.getElementById('memoryGame');
+            gameContainer.innerHTML = '';
+            const shuffled = [...memoryCards].sort(() => 0.5 - Math.random()).slice(0, 8);
+            const paired = [...shuffled, ...shuffled.map(card => ({
+                id: card.id + 100, content: card.pair, pair: card.content
+            }))].sort(() => 0.5 - Math.random());
+            paired.forEach(card => {
+                const el = document.createElement('div');
+                el.className = 'memory-card';
+                el.textContent = card.content;
+                el.dataset.pair = card.pair;
+                el.addEventListener('click', flipCard);
+                gameContainer.appendChild(el);
+            });
+            matchedPairs = 0; attempts = 0;
+            document.getElementById('attempts').textContent = attempts;
+            document.getElementById('matches').textContent = matchedPairs;
+        }
+        function flipCard() {
+            if (flippedCards.length < 2 && !this.classList.contains('flipped')) {
+                this.classList.add('flipped');
+                flippedCards.push(this);
+                if (flippedCards.length === 2) {
+                    attempts++;
+                    document.getElementById('attempts').textContent = attempts;
+                    checkForMatch();
+                }
+            }
+        }
+        function checkForMatch() {
+            const [c1, c2] = flippedCards;
+            if (c1.textContent === c2.dataset.pair || c2.textContent === c1.dataset.pair) {
+                matchedPairs++;
+                document.getElementById('matches').textContent = matchedPairs;
+                c1.removeEventListener('click', flipCard);
+                c2.removeEventListener('click', flipCard);
+                c1.style.backgroundColor = 'var(--success-color)';
+                c2.style.backgroundColor = 'var(--success-color)';
+                flippedCards = [];
+                if (matchedPairs === 8) setTimeout(() => alert('¡Felicidades!'), 500);
+            } else {
+                setTimeout(() => {
+                    c1.classList.remove('flipped');
+                    c2.classList.remove('flipped');
+                    flippedCards = [];
+                }, 1000);
+            }
+        }
+        document.getElementById('resetMemoryGame').addEventListener('click', renderMemoryGame);
+        renderMemoryGame();
+
+        /* ==============================
+           Relacionar columnas
+        ============================== */
+        let draggedItem = null;
+        document.querySelectorAll('.matching-item').forEach(item => {
+            item.addEventListener('dragstart', function () { draggedItem = this; this.style.opacity = '0.4'; });
+            item.addEventListener('dragend', function () { this.style.opacity = '1'; });
+        });
+        document.querySelectorAll('.drop-area').forEach(area => {
+            area.addEventListener('dragover', e => { e.preventDefault(); area.style.borderColor = 'var(--accent-color)'; });
+            area.addEventListener('dragleave', () => area.style.borderColor = '#ccc');
+            area.addEventListener('drop', function (e) {
+                e.preventDefault();
+                area.style.borderColor = '#ccc';
+                if (draggedItem.dataset.value === this.dataset.value) {
+                    this.textContent = draggedItem.textContent + ' - ' + this.textContent;
+                    draggedItem.style.display = 'none';
+                }
+            });
+        });
+        document.getElementById('checkMatching').addEventListener('click', function () {
+            const matchedItems = document.querySelectorAll('.drop-area');
+            let correct = 0;
+            matchedItems.forEach(item => { if (item.textContent.includes('-')) correct++; });
+            const feedback = document.getElementById('matchingFeedback');
+            if (correct === 4) {
+                feedback.textContent = '¡Perfecto!';
+                feedback.style.color = 'var(--success-color)';
+            } else {
+                feedback.textContent = `Tienes ${correct} de 4 correctas.`;
+                feedback.style.color = 'var(--error-color)';
+            }
+        });
+
+        /* ==============================
+           Ordena la frase
+        ============================== */
+        const sentenceOrder = document.getElementById('sentenceOrder');
+        if (sentenceOrder) {
+            let draggedWord = null;
+            document.querySelectorAll('.word-draggable').forEach(word => {
+                word.addEventListener('dragstart', () => draggedWord = word);
+                word.addEventListener('dragover', e => e.preventDefault());
+                word.addEventListener('drop', function () {
+                    if (draggedWord && draggedWord !== this) {
+                        const di = [...sentenceOrder.children].indexOf(draggedWord);
+                        const ti = [...sentenceOrder.children].indexOf(this);
+                        if (di > ti) sentenceOrder.insertBefore(draggedWord, this);
+                        else sentenceOrder.insertBefore(draggedWord, this.nextSibling);
+                    }
+                });
+            });
+            document.getElementById('checkSentenceOrder').addEventListener('click', () => {
+                const currentOrder = [...sentenceOrder.children].map(c => c.textContent).join(' ');
+                const feedback = document.getElementById('sentenceOrderFeedback');
+                if (currentOrder === "ayer fui al cine") {
+                    feedback.textContent = "✅ ¡Correcto!";
+                    feedback.style.color = "var(--success-color)";
+                } else {
+                    feedback.textContent = "❌ Orden incorrecto.";
+                    feedback.style.color = "var(--error-color)";
+                }
+            });
+        }
+
+        /* ==============================
+           Verdadero o falso
+        ============================== */
+        document.querySelectorAll('.tf-btn').forEach(btn => {
+            btn.addEventListener('click', function () {
+                const feedback = this.parentElement.nextElementSibling;
+                if (this.dataset.correct === "true") {
+                    feedback.textContent = "✅ Correcto";
+                    feedback.style.color = "var(--success-color)";
+                } else {
+                    feedback.textContent = "❌ Incorrecto";
+                    feedback.style.color = "var(--error-color)";
+                }
+            });
+        });
+        
+        /* ==============================
+           Completar huecos (drag-drop)
+        ============================== */
+        document.querySelectorAll('.word-option').forEach(word => {
+            word.addEventListener('dragstart', e => e.dataTransfer.setData('text', word.textContent));
+        });
+        document.querySelectorAll('.blank-drop').forEach(blank => {
+            blank.addEventListener('dragover', e => e.preventDefault());
+            blank.addEventListener('drop', function (e) {
+                e.preventDefault();
+                const droppedWord = e.dataTransfer.getData('text');
+                this.textContent = droppedWord;
+                const feedback = document.getElementById('dragDropFeedback');
+                if (droppedWord === this.dataset.answer) {
+                    feedback.textContent = "✅ Correcto";
+                    feedback.style.color = "var(--success-color)";
+                } else {
+                    feedback.textContent = "❌ Incorrecto";
+                    feedback.style.color = "var(--error-color)";
+                }
+            });
+        });
+    }
+
+    const sentences = [
+        { id: 1, correct: "Ayer mis amigos vinieron a casa" },
+        { id: 2, correct: "El fin de semana hicimos una excursión" },
+        { id: 3, correct: "¿Dónde pusiste las llaves del coche?" },
+        { id: 4, correct: "No pudimos ir al concierto porque llovió" },
+        { id: 5, correct: "Ellos dijeron que no quisieron participar" }
+    ];
+
+    // Configuración del crucigrama
+    const crosswordConfig = {
+        size: 8,
+        grid: [
+            [' ', ' ', ' ', '#', ' ', ' ', ' ', ' '],
+            [' ', '#', ' ', ' ', ' ', '#', ' ', ' '],
+            [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+            ['#', ' ', ' ', ' ', ' ', ' ', ' ', '#'],
+            [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+            [' ', '#', ' ', ' ', ' ', '#', ' ', ' '],
+            [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
+            [' ', ' ', '#', ' ', ' ', ' ', '#', ' ']
+        ],
+        words: [
+            { word: "FUI", clue: "Yo ___ (ir) al cine ayer", row: 0, col: 0, horizontal: true },
+            { word: "TUVO", clue: "Ella ___ (tener) un examen difícil", row: 0, col: 4, horizontal: true },
+            { word: "HICIMOS", clue: "Nosotros ___ (hacer) la tarea", row: 2, col: 1, horizontal: true },
+            { word: "VINIERON", clue: "Ellos ___ (venir) a la fiesta", row: 5, col: 0, horizontal: true },
+            { word: "PUDISTE", clue: "Tú ___ (poder) terminar el proyecto", row: 0, col: 0, horizontal: false },
+            { word: "ESTUVIERON", clue: "Ustedes ___ (estar) en la reunión", row: 0, col: 3, horizontal: false },
+            { word: "QUISO", clue: "Él ___ (querer) comprar el coche", row: 0, col: 6, horizontal: false },
+            { word: "DIJISTEIS", clue: "Vosotros ___ (decir) la verdad", row: 0, col: 7, horizontal: false }
+        ]
+    };
+
+    // Inicializar ejercicios de ordenar frases
+    sentences.forEach(sentence => {
+        const dropArea = document.getElementById(`dropArea${sentence.id}`);
+        const wordBank = document.getElementById(`sentenceOrder${sentence.id}`);
+        const checkBtn = document.getElementById(`checkSentence${sentence.id}`);
+        const feedback = document.getElementById(`feedback${sentence.id}`);
+
+        setupSentenceOrder(wordBank, dropArea, checkBtn, feedback, sentence.correct);
+    });
+
+    // Inicializar crucigrama
+    initCrossword();
+
+    // Función para configurar el ejercicio de ordenar frases
+    function setupSentenceOrder(wordBank, dropArea, checkBtn, feedback, correctSentence) {
+        let draggedWord = null;
+        const words = Array.from(wordBank.children);
+
+        // Hacer palabras arrastrables
+        words.forEach(word => {
+            word.addEventListener('dragstart', function() {
+                draggedWord = this;
+                setTimeout(() => this.style.opacity = '0.4', 0);
+            });
+
+            word.addEventListener('dragend', function() {
+                setTimeout(() => this.style.opacity = '1', 0);
+            });
+        });
+
+        // Configurar área de soltado
+        dropArea.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            this.style.backgroundColor = '#f0f8ff';
+        });
+
+        dropArea.addEventListener('dragleave', function() {
+            this.style.backgroundColor = '';
+        });
+
+        dropArea.addEventListener('drop', function(e) {
+            e.preventDefault();
+            this.style.backgroundColor = '';
+            
+            if (draggedWord && !draggedWord.classList.contains('placed')) {
+                const newWord = draggedWord.cloneNode(true);
+                newWord.classList.add('placed');
+                newWord.draggable = false;
+                
+                // Permitir eliminar palabra haciendo clic
+                newWord.addEventListener('click', function() {
+                    this.remove();
+                    draggedWord.style.display = 'inline-block';
+                });
+                
+                this.appendChild(newWord);
+                draggedWord.style.display = 'none';
+            }
+        });
+
+        // Verificar la frase ordenada
+        checkBtn.addEventListener('click', function() {
+            const userSentence = Array.from(dropArea.children)
+                .map(word => word.textContent)
+                .join(' ')
+                .trim();
+            
+            if (userSentence === correctSentence) {
+                feedback.textContent = '¡Correcto! La frase está bien ordenada.';
+                feedback.style.color = 'green';
+            } else {
+                feedback.textContent = 'Incorrecto. Intenta nuevamente.';
+                feedback.style.color = 'red';
+            }
+            feedback.style.display = 'block';
+        });
+    }
+
+    // Función para inicializar el crucigrama
+    function initCrossword() {
+        const crosswordEl = document.getElementById('crossword');
+        const checkBtn = document.getElementById('checkCrossword');
+        const feedback = document.getElementById('crosswordFeedback');
+        
+        // Crear la cuadrícula del crucigrama
+        for (let row = 0; row < crosswordConfig.size; row++) {
+            for (let col = 0; col < crosswordConfig.size; col++) {
+                const cell = document.createElement('div');
+                cell.className = 'crossword-cell';
+                
+                if (crosswordConfig.grid[row][col] === '#') {
+                    cell.classList.add('black');
+                } else {
+                    const input = document.createElement('input');
+                    input.type = 'text';
+                    input.maxLength = 1;
+                    input.dataset.row = row;
+                    input.dataset.col = col;
+                    cell.appendChild(input);
+                }
+                
+                crosswordEl.appendChild(cell);
+            }
+        }
+        
+        // Verificar el crucigrama
+        checkBtn.addEventListener('click', function() {
+            let correct = true;
+            const inputs = document.querySelectorAll('.crossword-cell input');
+            
+            crosswordConfig.words.forEach(cwWord => {
+                const word = cwWord.word;
+                for (let i = 0; i < word.length; i++) {
+                    let row, col;
+                    
+                    if (cwWord.horizontal) {
+                        row = cwWord.row;
+                        col = cwWord.col + i;
+                    } else {
+                        row = cwWord.row + i;
+                        col = cwWord.col;
+                    }
+                    
+                    const input = document.querySelector(`input[data-row="${row}"][data-col="${col}"]`);
+                    if (input && input.value.toUpperCase() !== word[i]) {
+                        input.style.backgroundColor = '#ffdddd';
+                        correct = false;
+                    } else if (input) {
+                        input.style.backgroundColor = '#ddffdd';
+                    }
+                }
+            });
+            
+            if (correct) {
+                feedback.textContent = '¡Felicidades! Completó correctamente el crucigrama.';
+                feedback.style.color = 'green';
+            } else {
+                feedback.textContent = 'Algunas respuestas son incorrectas. Revisa las casillas marcadas.';
+                feedback.style.color = 'red';
+            }
+            feedback.style.display = 'block';
+        });
+    }
+});
+
+
 
