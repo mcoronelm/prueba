@@ -194,7 +194,75 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
     }
+    const sentenceOrder = document.getElementById('sentenceOrder');
+if (sentenceOrder) {
+    let draggedWord = null;
 
+    document.querySelectorAll('.word-draggable').forEach(word => {
+        word.addEventListener('dragstart', () => draggedWord = word);
+        word.addEventListener('dragover', e => e.preventDefault());
+        word.addEventListener('drop', function() {
+            if (draggedWord && draggedWord !== this) {
+                const draggedIndex = [...sentenceOrder.children].indexOf(draggedWord);
+                const targetIndex = [...sentenceOrder.children].indexOf(this);
+                if (draggedIndex > targetIndex) {
+                    sentenceOrder.insertBefore(draggedWord, this);
+                } else {
+                    sentenceOrder.insertBefore(draggedWord, this.nextSibling);
+                }
+            }
+        });
+    });
+
+    document.getElementById('checkSentenceOrder').addEventListener('click', () => {
+        const currentOrder = [...sentenceOrder.children].map(c => c.textContent).join(' ');
+        const correctOrder = "ayer fui al cine";
+        const feedback = document.getElementById('sentenceOrderFeedback');
+        if (currentOrder === correctOrder) {
+            feedback.textContent = "✅ ¡Correcto!";
+            feedback.style.color = "var(--success-color)";
+        } else {
+            feedback.textContent = "❌ Orden incorrecto. Intenta de nuevo.";
+            feedback.style.color = "var(--error-color)";
+        }
+    });
+}
+
+/* === Ejercicio: Verdadero o falso === */
+document.querySelectorAll('.tf-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+        const feedback = this.parentElement.nextElementSibling;
+        if (this.dataset.correct === "true") {
+            feedback.textContent = "✅ Correcto";
+            feedback.style.color = "var(--success-color)";
+        } else {
+            feedback.textContent = "❌ Incorrecto";
+            feedback.style.color = "var(--error-color)";
+        }
+    });
+});
+
+/* === Ejercicio: Completar huecos === */
+document.querySelectorAll('.word-option').forEach(word => {
+    word.addEventListener('dragstart', e => e.dataTransfer.setData('text', word.textContent));
+});
+
+document.querySelectorAll('.blank-drop').forEach(blank => {
+    blank.addEventListener('dragover', e => e.preventDefault());
+    blank.addEventListener('drop', function(e) {
+        e.preventDefault();
+        const droppedWord = e.dataTransfer.getData('text');
+        this.textContent = droppedWord;
+        const feedback = document.getElementById('dragDropFeedback');
+        if (droppedWord === this.dataset.answer) {
+            feedback.textContent = "✅ Correcto";
+            feedback.style.color = "var(--success-color)";
+        } else {
+            feedback.textContent = "❌ Incorrecto";
+            feedback.style.color = "var(--error-color)";
+        }
+    });
+});
     function checkForMatch() {
         const [card1, card2] = flippedCards;
         
@@ -400,3 +468,4 @@ document.querySelectorAll('.blank-drop').forEach(blank => {
         }
     });
 });
+
