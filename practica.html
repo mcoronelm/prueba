@@ -25,6 +25,8 @@
         .word-option:hover { background-color: var(--accent-color); color: white; }
         .word-option.selected { background-color: var(--primary-color); color: white; }
         .drop-area { min-height: 30px; border: 2px dashed #ccc; border-radius: 5px; padding: 10px; margin: 10px 0; }
+
+        
     </style>
 </head>
 <body>
@@ -124,6 +126,118 @@
             </div>
             <button class="btn" id="checkSentenceOrder">Verificar</button>
             <div class="feedback" id="sentenceOrderFeedback"></div>
+        </section>
+
+         <section class="practice-section">
+            <h2>Ordena la frase 1</h2>
+            <div class="drop-area" id="dropArea1"></div>
+            <div id="sentenceOrder1">
+                <div class="word-draggable" draggable="true">Ayer</div>
+                <div class="word-draggable" draggable="true">mis</div>
+                <div class="word-draggable" draggable="true">amigos</div>
+                <div class="word-draggable" draggable="true">vinieron</div>
+                <div class="word-draggable" draggable="true">a</div>
+                <div class="word-draggable" draggable="true">casa</div>
+            </div>
+            <button class="btn" id="checkSentence1">Verificar</button>
+            <div class="feedback" id="feedback1"></div>
+        </section>
+
+        <!-- Ejercicio 2 -->
+        <section class="practice-section">
+            <h2>Ordena la frase 2</h2>
+            <div class="drop-area" id="dropArea2"></div>
+            <div id="sentenceOrder2">
+                <div class="word-draggable" draggable="true">El</div>
+                <div class="word-draggable" draggable="true">fin</div>
+                <div class="word-draggable" draggable="true">de</div>
+                <div class="word-draggable" draggable="true">semana</div>
+                <div class="word-draggable" draggable="true">hicimos</div>
+                <div class="word-draggable" draggable="true">una</div>
+                <div class="word-draggable" draggable="true">excursión</div>
+            </div>
+            <button class="btn" id="checkSentence2">Verificar</button>
+            <div class="feedback" id="feedback2"></div>
+        </section>
+
+        <!-- Ejercicio 3 -->
+        <section class="practice-section">
+            <h2>Ordena la frase 3</h2>
+            <div class="drop-area" id="dropArea3"></div>
+            <div id="sentenceOrder3">
+                <div class="word-draggable" draggable="true">¿</div>
+                <div class="word-draggable" draggable="true">Dónde</div>
+                <div class="word-draggable" draggable="true">pusiste</div>
+                <div class="word-draggable" draggable="true">las</div>
+                <div class="word-draggable" draggable="true">llaves</div>
+                <div class="word-draggable" draggable="true">del</div>
+                <div class="word-draggable" draggable="true">coche</div>
+                <div class="word-draggable" draggable="true">?</div>
+            </div>
+            <button class="btn" id="checkSentence3">Verificar</button>
+            <div class="feedback" id="feedback3"></div>
+        </section>
+
+        <!-- Ejercicio 4 -->
+        <section class="practice-section">
+            <h2>Ordena la frase 4</h2>
+            <div class="drop-area" id="dropArea4"></div>
+            <div id="sentenceOrder4">
+                <div class="word-draggable" draggable="true">No</div>
+                <div class="word-draggable" draggable="true">pudimos</div>
+                <div class="word-draggable" draggable="true">ir</div>
+                <div class="word-draggable" draggable="true">al</div>
+                <div class="word-draggable" draggable="true">concierto</div>
+                <div class="word-draggable" draggable="true">porque</div>
+                <div class="word-draggable" draggable="true">llovió</div>
+            </div>
+            <button class="btn" id="checkSentence4">Verificar</button>
+            <div class="feedback" id="feedback4"></div>
+        </section>
+
+        <!-- Ejercicio 5 -->
+        <section class="practice-section">
+            <h2>Ordena la frase 5</h2>
+            <div class="drop-area" id="dropArea5"></div>
+            <div id="sentenceOrder5">
+                <div class="word-draggable" draggable="true">Ellos</div>
+                <div class="word-draggable" draggable="true">dijeron</div>
+                <div class="word-draggable" draggable="true">que</div>
+                <div class="word-draggable" draggable="true">no</div>
+                <div class="word-draggable" draggable="true">quisieron</div>
+                <div class="word-draggable" draggable="true">participar</div>
+            </div>
+            <button class="btn" id="checkSentence5">Verificar</button>
+            <div class="feedback" id="feedback5"></div>
+        </section>
+
+        <!-- Crucigrama -->
+        <section class="practice-section">
+            <h2>Crucigrama de Verbos en Pretérito</h2>
+            <div id="crossword"></div>
+            <button class="btn" id="checkCrossword">Verificar Crucigrama</button>
+            <div class="feedback" id="crosswordFeedback"></div>
+            
+            <div class="crossword-clues">
+                <div class="clue-list">
+                    <h3>Horizontal:</h3>
+                    <ol>
+                        <li>Yo ___ (ir) al cine ayer</li>
+                        <li>Ella ___ (tener) un examen difícil</li>
+                        <li>Nosotros ___ (hacer) la tarea</li>
+                        <li>Ellos ___ (venir) a la fiesta</li>
+                    </ol>
+                </div>
+                <div class="clue-list">
+                    <h3>Vertical:</h3>
+                    <ol>
+                        <li>Tú ___ (poder) terminar el proyecto</li>
+                        <li>Ustedes ___ (estar) en la reunión</li>
+                        <li>Él ___ (querer) comprar el coche</li>
+                        <li>Vosotros ___ (decir) la verdad</li>
+                    </ol>
+                </div>
+            </div>
         </section>
 
         <!-- 6. Verdadero o falso -->
