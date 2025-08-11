@@ -276,7 +276,96 @@
                 <button class="btn check-btn" id="checkCrossword">Verificar</button>
                 <div class="feedback" id="crosswordFeedback"></div>
             </div>
-            
+            <section class="practice-section">
+            <h2>Ordena la frase</h2>
+            <p>Arrastra las palabras para formar una oración correcta en pretérito:</p>
+            <div class="sentence-order" id="sentenceOrder">
+                <div class="word-draggable" draggable="true">ayer</div>
+                <div class="word-draggable" draggable="true">fui</div>
+                <div class="word-draggable" draggable="true">al</div>
+                <div class="word-draggable" draggable="true">cine</div>
+            </div>
+            <button class="btn" id="checkSentenceOrder">Verificar</button>
+            <div class="feedback" id="sentenceOrderFeedback"></div>
+        </section>
+
+        <!-- Verdadero o falso -->
+        <section class="practice-section">
+            <h2>Verdadero o falso</h2>
+
+            <div class="true-false">
+                <p>"Yo andé a la escuela ayer."</p>
+                <button class="btn tf-btn" data-correct="false">Falso</button>
+                <button class="btn tf-btn" data-correct="true">Verdadero</button>
+            </div>
+            <div class="feedback"></div>
+
+            <div class="true-false">
+                <p>"Ella tuvo una fiesta el sábado."</p>
+                <button class="btn tf-btn" data-correct="true">Verdadero</button>
+                <button class="btn tf-btn" data-correct="false">Falso</button>
+            </div>
+            <div class="feedback"></div>
+
+            <div class="true-false">
+                <p>"Nosotros hicimos la tarea anoche."</p>
+                <button class="btn tf-btn" data-correct="true">Verdadero</button>
+                <button class="btn tf-btn" data-correct="false">Falso</button>
+            </div>
+            <div class="feedback"></div>
+
+            <div class="true-false">
+                <p>"Tú pudiste encontrar las llaves."</p>
+                <button class="btn tf-btn" data-correct="true">Verdadero</button>
+                <button class="btn tf-btn" data-correct="false">Falso</button>
+            </div>
+            <div class="feedback"></div>
+
+            <div class="true-false">
+                <p>"Ellos vinieron a la fiesta el viernes."</p>
+                <button class="btn tf-btn" data-correct="true">Verdadero</button>
+                <button class="btn tf-btn" data-correct="false">Falso</button>
+            </div>
+            <div class="feedback"></div>
+
+            <div class="true-false">
+                <p>"Yo supe la respuesta ayer."</p>
+                <button class="btn tf-btn" data-correct="true">Verdadero</button>
+                <button class="btn tf-btn" data-correct="false">Falso</button>
+            </div>
+            <div class="feedback"></div>
+
+            <div class="true-false">
+                <p>"Ustedes estuvieron en la reunión."</p>
+                <button class="btn tf-btn" data-correct="true">Verdadero</button>
+                <button class="btn tf-btn" data-correct="false">Falso</button>
+            </div>
+            <div class="feedback"></div>
+        </section>
+
+        <!-- Completa con el verbo correcto -->
+        <section class="practice-section">
+            <h2>Completa con el verbo correcto</h2>
+            <p>Yo <span class="blank-drop" data-answer="fui"></span> al parque el sábado.</p>
+            <div class="word-bank">
+                <div class="word-option" draggable="true">fui</div>
+                <div class="word-option" draggable="true">voy</div>
+                <div class="word-option" draggable="true">iba</div>
+            </div>
+            <div class="feedback" id="dragDropFeedback"></div>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>© 2023 Aprende el Pretérito - Diseñado para estudiantes de secundaria en California</p>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
             <button class="btn" id="showBonus">Mostrar más ejercicios</button>
         </section>
 
@@ -293,4 +382,5 @@
 
     <script src="js/script.js"></script>
 </body>
+
 </html>
